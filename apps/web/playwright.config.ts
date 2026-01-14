@@ -1,0 +1,35 @@
+import { defineConfig, devices } from '@playwright/test';
+
+const channel = process.env.PLAYWRIGHT_CHANNEL;
+
+export default defineConfig({
+  testDir: './e2e',
+  timeout: 60_000,
+  expect: { timeout: 10_000 },
+  fullyParallel: true,
+  retries: process.env.CI ? 1 : 0,
+  use: {
+    baseURL: 'http://localhost:3100',
+    trace: 'retain-on-failure',
+  },
+  webServer: {
+    command: 'corepack pnpm -C ../.. dev:e2e',
+    url: 'http://localhost:3100',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+    env: {
+      ...process.env,
+      WS_CHAOS_DISCONNECT: '0',
+      LOG_LEVEL: 'warn',
+    },
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(channel ? { channel } : {}),
+      },
+    },
+  ],
+});

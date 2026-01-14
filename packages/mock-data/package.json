@@ -1,0 +1,12 @@
+{
+  "name": "@ai-infra-studio/mock-data",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@ai-infra-studio/types": "workspace:*",
+    "yaml": "^2.4.5"
+  }
+}
