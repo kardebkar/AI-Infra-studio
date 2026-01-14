@@ -12,7 +12,11 @@ Portfolio-grade local demo of a fictional internal AI infrastructure platform: m
 
 ## Screenshots / GIFs
 
-This repo ships without images (to keep it lightweight). To add screenshots/GIFs:
+![Dashboard](docs/screenshots/dashboard.png)
+![Experiments](docs/screenshots/experiments.png)
+![Deployments](docs/screenshots/deployments.png)
+
+To add more screenshots/GIFs:
 
 - macOS quick GIF:
   - Record: QuickTime → “New Screen Recording”
@@ -22,14 +26,8 @@ This repo ships without images (to keep it lightweight). To add screenshots/GIFs
   - Run detail → Logs tab: search + pin a log line + jump-to-time
   - Experiments → Compare runs: config diff + metric deltas
   - Deployments: simulate incident → rollback
-
-Add images under `docs/screenshots/` and (optionally) uncomment:
-
-<!--
-![Dashboard](docs/screenshots/dashboard.png)
-![Experiments](docs/screenshots/experiments.png)
-![Deployments](docs/screenshots/deployments.png)
--->
+ 
+Add images under `docs/screenshots/` and reference them from this README.
 
 ## Running locally
 
