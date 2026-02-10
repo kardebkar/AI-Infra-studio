@@ -1,6 +1,6 @@
 # AI Infra Studio
 
-Portfolio-grade local demo of a fictional internal AI infrastructure platform: model authoring, experiments, training observability, deployment workflows, and debugging/tracing. Everything is synthetic (no real training, no external APIs, no proprietary branding).
+Local demo of a fictional internal AI infrastructure platform: model authoring, experiments, run observability, deployment workflows, and debugging/tracing. Everything is synthetic (no real training, no external APIs, no proprietary branding).
 
 ## What you can do
 
@@ -12,29 +12,20 @@ Portfolio-grade local demo of a fictional internal AI infrastructure platform: m
 
 ## Screenshots / GIFs
 
-![Dashboard](docs/screenshots/dashboard.png)
-![Experiments](docs/screenshots/experiments.png)
-![Deployments](docs/screenshots/deployments.png)
+Add images under `docs/screenshots/` and reference them here.
 
-To add more screenshots/GIFs:
-
-- macOS quick GIF:
-  - Record: QuickTime → “New Screen Recording”
-  - Convert: `ffmpeg -i input.mov -vf "fps=15,scale=1200:-1:flags=lanczos" -loop 0 output.gif`
-- Suggested captures:
-  - Run detail → Timeline tab: brush-zoom + pin two moments + compare
-  - Run detail → Logs tab: search + pin a log line + jump-to-time
-  - Experiments → Compare runs: config diff + metric deltas
-  - Deployments: simulate incident → rollback
- 
-Add images under `docs/screenshots/` and reference them from this README.
+Suggested captures:
+- Run detail → Timeline tab: brush-zoom + pin two moments + compare
+- Run detail → Logs tab: search + pin a log line + jump-to-time
+- Experiments → Compare runs: config diff + metric deltas
+- Deployments: simulate incident → rollback
 
 ## Running locally
 
-Prereqs: Node.js `>=20`, `pnpm` (or `corepack`).
+Prereqs: Node.js `>= 20`, `pnpm` (or `corepack`).
 
 ```bash
-cd "AI-Infra-studio"
+cd AI-Infra-studio
 pnpm i
 pnpm dev
 ```
@@ -42,7 +33,7 @@ pnpm dev
 - Web: `http://localhost:3000`
 - API: `http://localhost:4000`
 
-Environment:
+### Environment variables
 
 - `NEXT_PUBLIC_API_BASE_URL` (web) defaults to `http://localhost:4000`
 - `WS_CHAOS_DISCONNECT=1` (api) forces periodic WS drops (to exercise reconnect UI)
@@ -63,7 +54,7 @@ Environment:
 
 ## Architecture (high level)
 
-```
+```text
 ┌───────────────┐        REST         ┌────────────────────┐
 │ apps/web      │ ──────────────────► │ apps/api (Fastify)  │
 │ Next.js (App) │                    │ + WS streaming       │
@@ -71,17 +62,17 @@ Environment:
 └───────────────┘        WS           └─────────┬───────────┘
                                                 │
                                                 ▼
-                                        ┌─────────────────┐
-                                        │ packages/mock-data│
-                                        │ deterministic seed│
-                                        └─────────────────┘
+                                        ┌──────────────────┐
+                                        │ packages/mock-data │
+                                        │ deterministic seed │
+                                        └──────────────────┘
 ```
 
 Data is generated deterministically from a seed and kept in-memory in the API process. Mutations like “Create Run” and “Simulate incident” update the store for the session.
 
 ## Folder structure
 
-```
+```text
 /apps
   /web        Next.js UI
   /api        Fastify REST + WebSocket server
@@ -116,3 +107,13 @@ PLAYWRIGHT_CHANNEL=chrome pnpm e2e
 - Smarter “what changed?”: correlate pinned moments with config deltas and deployment events
 - More observability tracks (I/O throughput, CPU, memory) and richer alert simulation
 - Artifact viewer improvements (preview + provenance)
+
+## License
+
+No license file is included yet. If you plan to share or reuse this publicly, add a `LICENSE` (MIT/Apache-2.0 are common choices).
+## Screenshots / GIFs
+
+![Dashboard](docs/screenshots/dashboard.png)
+![Experiments](docs/screenshots/experiments.png)
+![Deployments](docs/screenshots/deployments.png)
+
